@@ -4,7 +4,7 @@ import { NuxtLink } from "#components";
 
 import type { RouteLocationRaw } from "vue-router";
 import type { RouteNamedMap } from "vue-router/auto-routes";
-import hangarLogo from "~/assets/hangar-logo.svg";
+import projectkorraLogo from "~/assets/projectkorra-icon.png";
 
 import IconMdiHomeOutline from "~icons/mdi/home-outline";
 import IconMdiAccountGroupOutline from "~icons/mdi/account-group-outline";
@@ -21,6 +21,8 @@ import IconMdiAccountMultiplePlusOutline from "~icons/mdi/account-multiple-plus-
 import IconMdiFolderWrenchOutline from "~icons/mdi/folder-wrench-outline";
 import IconMdiFolderInformationOutline from "~icons/mdi/folder-information-outline";
 import IconMdiSparklesOutline from "~icons/mdi/sparkles-outline";
+
+import IconMdiAccountGroup from "~icons/mdi/account-group";
 
 import { unseenChangelog } from "#shared/changelog";
 import { NamedPermission } from "#shared/types/backend";
@@ -61,15 +63,19 @@ type NavBarLinks = { link: keyof RouteNamedMap; label: string; icon?: any }[];
 
 const navBarLinks: NavBarLinks = [
   { link: "index", label: t("nav.indexTitle") },
-  { link: "authors", label: t("nav.usersTitle") },
+  { link: "official_plugins", label: t("nav.officialPlugins") },
+  { link: "side_plugins", label: t("nav.sidePlugins") },
+  { link: "abilities", label: t("nav.abilities") },
+  { link: "search", label: t("nav.search") },
 ];
 
 const navBarMenuLinksHangar: NavBarLinks = [
   { link: "index", label: t("general.home"), icon: IconMdiHomeOutline },
   { link: "guidelines", label: t("guidelines.title"), icon: IconMdiFileDocumentAlertOutline },
   { link: "new", label: t("nav.links.createProject"), icon: IconMdiFolderPlusOutline },
-  { link: "neworganization", label: t("nav.links.createOrganization"), icon: IconMdiAccountMultiplePlusOutline },
-  { link: "authors", label: t("nav.usersTitle"), icon: IconMdiAccountGroupOutline },
+  { link: "neworganization", label: t("nav.links.createOrganization"), icon: IconMdiFolderPlusOutline },
+  { link: "authors", label: t("nav.authorsTitle"), icon: IconMdiAccountGroup },
+  { link: "staff", label: t("nav.staffTitle"), icon: IconMdiAccountGroup },
 ];
 if (!authStore.user) {
   navBarMenuLinksHangar.splice(2, 2);
@@ -217,7 +223,7 @@ function isRecent(date: string): boolean {
 
         <!-- Site logo -->
         <NuxtLink to="/" class="flex-shrink-0" v-on="useTracking('nav-logo')">
-          <img alt="Hangar Logo" :src="hangarLogo" height="34" width="32" />
+          <img alt="ProjectKorra Logo" :src="projectkorraLogo" height="34" width="32" />
         </NuxtLink>
 
         <!-- Desktop links -->
@@ -395,11 +401,13 @@ function isRecent(date: string): boolean {
                 <DropdownItem :to="'/' + authStore.user.name"><IconMdiAccountOutline class="flex-shrink-0" />{{ t("nav.user.profile") }}</DropdownItem>
                 <DropdownItem to="/notifications"><IconMdiBellOutline class="flex-shrink-0" />{{ t("nav.user.notifications") }}</DropdownItem>
                 <DropdownItem to="/auth/settings/profile"><IconMdiCogOutline class="flex-shrink-0" />{{ t("nav.user.settings") }}</DropdownItem>
+                <!--
                 <DropdownItem to="/changelog">
                   <IconMdiSparklesOutline class="flex-shrink-0" />
                   {{ t("nav.user.changelog") }}
                   <Chip v-if="unseenChangelogCount" tone="primary">{{ unseenChangelogCount }}</Chip>
                 </DropdownItem>
+                -->
                 <hr v-if="hasStaffLinks" class="my-1 border-gray-300 dark:border-gray-700" />
                 <DropdownItem v-if="hasPerms(NamedPermission.ModNotesAndFlags)" to="/admin/flags">
                   <IconMdiFlagOutline class="flex-shrink-0" />
@@ -419,9 +427,11 @@ function isRecent(date: string): boolean {
                 <DropdownItem v-if="hasPerms(NamedPermission.ViewStats)" to="/admin/stats">
                   <IconMdiChartLine class="flex-shrink-0" />{{ t("nav.user.stats") }}
                 </DropdownItem>
+                <!--
                 <DropdownItem v-if="hasPerms(NamedPermission.ViewHealth)" to="/admin/health">
                   <IconMdiPulse class="flex-shrink-0" />{{ t("nav.user.health") }}
                 </DropdownItem>
+                -->
                 <DropdownItem v-if="hasPerms(NamedPermission.ViewLogs)" to="/admin/log">
                   <IconMdiHistory class="flex-shrink-0" />{{ t("nav.user.log") }}
                 </DropdownItem>
