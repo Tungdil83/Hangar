@@ -141,8 +141,8 @@ const ssr = import.meta.server;
 
 useSeo(
   computed(() => ({
-    title: `Hangar - The best place to download ${props.index ? "Minecraft" : props.platformName} plugins`,
-    description: `Hangar allows you to find and download the best ${props.index ? "Minecraft" : props.platformName} plugins for your Minecraft server`,
+    title: `ProjectKorra | Downloads`,
+    description: `Download all ProjectKorra plugins, side plugins and custom abilities here!`,
     route,
     additionalScripts: [
       {
@@ -168,50 +168,11 @@ useSeo(
 <template>
   <div>
     <Container class="flex flex-col items-center gap-4">
+      <slot name="announcement"></slot>
       <template v-if="index">
-        <h1 ref="pageChangeScrollAnchor" class="text-3xl font-bold uppercase text-center mt-4 flex flex-col w-full" data-allow-mismatch>
-          <template v-if="ssr">
-            Find your favorite <strong class="highlight bg-gradient-to-r from-primary-500 to-primary-400 text-transparent">Paper plugins</strong>
-          </template>
-          <template v-else>
-            Find your favorite
-            <div class="h-[36px] overflow-hidden relative">
-              <span class="flex flex-col absolute w-full anim">
-                <strong class="highlight bg-gradient-to-r from-primary-500 to-primary-400 text-transparent">Side Plugin</strong>
-                <strong class="highlight bg-gradient-to-r from-primary-500 to-primary-400 text-transparent">Ability Pack</strong>
-                <strong class="highlight bg-gradient-to-r from-primary-500 to-primary-400 text-transparent">Resource Pack</strong>
-              </span>
-            </div>
-          </template>
-        </h1>
-        <div class="text-1xl text-center mb-2">
-          Hangar allows you to find and download the best Side Plugins, Ability Packs or Resource Packs for your Minecraft server
-        </div>
+        <FrontPage></FrontPage>
       </template>
-      <template v-else>
-        <h1 ref="pageChangeScrollAnchor" class="text-3xl font-bold uppercase text-center mt-4">
-          Find your favorite
-          <strong class="highlight bg-gradient-to-r from-primary-500 to-primary-400 text-transparent"> {{ platformName }} plugins </strong>
-        </h1>
-        <div class="text-1xl text-center mb-2">Hangar allows you to find and download the best {{ platformName }} plugins for your Minecraft server</div>
-      </template>
-      <div v-if="!index" class="flex flex-col items-center gap-2 text-center">
-        <span class="text-sm text-gray-secondary">Looking for other platforms?</span>
-        <div class="flex flex-wrap justify-center gap-2">
-          <Button v-if="platform != Platform.PAPER" variant="outline" tone="neutral" to="/paper">
-            <PlatformLogo :platform="Platform.PAPER" :size="20" class="flex-shrink-0" />
-            Paper plugins
-          </Button>
-          <Button v-if="platform != Platform.MINECRAFT" variant="outline" tone="neutral" to="/velocity">
-            <PlatformLogo :platform="Platform.MINECRAFT" :size="20" class="flex-shrink-0" />
-            Velocity plugins
-          </Button>
-          <Button v-if="platform != Platform.PROJECTKORRA" variant="outline" tone="neutral" to="/projectkorra">
-            <PlatformLogo :platform="Platform.PROJECTKORRA" :size="20" class="flex-shrink-0" />
-            ProjectKorra Abilities
-          </Button>
-        </div>
-      </div>
+      <template v-if="!index">
       <!-- Search Bar -->
       <div class="hero-search">
         <!-- Text Input -->
@@ -276,12 +237,12 @@ useSeo(
         >
           {{ sorter.label }}
         </button>
-      </div>
+      </div></template>
     </Container>
-    <Container v-if="browsing" class="!pt-0 !pb-2">
+    <Container v-if="browsing && !index" class="!pt-0 !pb-2">
       <DiscoveryStrip />
     </Container>
-    <Container class="flex flex-col items-stretch gap-4 lg:flex-row lg:items-start lg:gap-6">
+    <Container v-if="!index" class="flex flex-col items-stretch gap-4 lg:flex-row lg:items-start lg:gap-6">
       <!-- Projects -->
       <div class="w-full min-w-0 mb-5 flex flex-col gap-2 lg:mb-0 lg:order-first">
         <ProjectList :projects="projects" :loading="!projects" :reset-anchor="pageChangeScrollAnchor" @update:page="(newPage: number) => (page = newPage)" />
@@ -431,9 +392,11 @@ useSeo(
               </div>
             </div>
           </Card>
+          <slot name="installation"></slot>
         </div>
       </aside>
     </Container>
+    <!--
     <h2 class="text-2xl text-center font-bold mt-8">Frequently asked Questions about Hangar (FAQ)</h2>
     <div class="md:(ml-15 mr-15)">
       <Card class="mt-4" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -461,8 +424,10 @@ useSeo(
         </div>
       </Card>
     </div>
+  -->
   </div>
 </template>
+
 
 <style lang="scss" scoped>
 .anim {
