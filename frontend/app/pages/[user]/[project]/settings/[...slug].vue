@@ -326,7 +326,7 @@ useSeo(
               >
                 <IconMdiPuzzleOutline v-if="tag === Tag.ADDON" />
                 <IconMdiLeaf v-else-if="tag === Tag.SUPPORTS_FOLIA" />
-                <IconMdiPuzzleOutline v-if="tag === Tag.CUSTOM_ABILITY" />
+                <IconMdiPuzzleOutline v-else-if="tag === Tag.CUSTOM_ABILITY" />
                 <IconMdiFileDocumentMultiple v-else-if="tag === Tag.ABILITY_PACK" />
                 <IconMdiAllInclusiveBox v-else-if="tag === Tag.PASSIVE_ABILITY" />
                 <IconMdiNumeric v-else-if="tag === Tag.COMBO_ABILITY" />
