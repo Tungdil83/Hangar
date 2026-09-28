@@ -44,7 +44,10 @@ public enum Tag {
     MOBS,
     WORLD,
     LIBRARY,
+    ADDON,
+    SUPPORTS_FOLIA,
     MISC;
+
 
     private static final Map<String, Tag> TAGS = new HashMap<>();
 
