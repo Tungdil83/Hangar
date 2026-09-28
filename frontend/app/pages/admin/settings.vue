@@ -53,6 +53,7 @@ const fullVersions = ref<Record<Platform, string[]>>({
   PAPER: [],
   PROJECTKORRA: [],
   MINECRAFT: [],
+  ASSET: [],
 });
 resetPlatformVersions();
 

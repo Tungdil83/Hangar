@@ -93,6 +93,7 @@ export enum Platform {
   PAPER = "PAPER",
   PROJECTKORRA = "PROJECTKORRA",
   MINECRAFT = "MINECRAFT",
+  ASSET = "ASSET",
 }
 
 export enum PermissionType {
