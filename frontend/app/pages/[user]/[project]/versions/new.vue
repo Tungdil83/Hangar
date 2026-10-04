@@ -156,7 +156,7 @@ const availablePlatforms = computed(() => {
     return globalData.value?.platforms?.filter((p) => p.enumName === "MINECRAFT" || p.enumName === "PROJECTKORRA") ?? [];
   }
 
-  if ([Category.DataPack, Category.ResourcePack, Category.WorldBuild].includes(props.project?.category as Category)) {
+  if ([Category.DataPack, Category.ResourcePack, Category.WorldBuild, Category.ConfigFile].includes(props.project?.category as Category)) {
     return globalData.value?.platforms?.filter((p) => p.enumName === "ASSET") ?? [];
   }
 
