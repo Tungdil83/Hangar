@@ -3,6 +3,7 @@ import type { Step } from "#shared/types/components/design/Steps";
 import type { Tab } from "#shared/types/components/design/Tabs";
 import type { HangarChannel, HangarProject, PendingVersion, Platform, PlatformData, ProjectChannel } from "#shared/types/backend";
 import { guidelinesLastUpdated } from "~/pages/guidelines.vue";
+import { Category } from "#shared/types/backend/index.ts";
 
 definePageMeta({
   projectPermsRequired: ["CreateVersion"],
@@ -150,6 +151,22 @@ const versionRules = [required(), pattern()(useBackendData.validations.version.r
 const platformVersionRules = [required("Select at least one platform version!"), minLength()(1)];
 const changelogRules = [requiredIf()(() => selectedStep.value === "changelog")];
 
+const availablePlatforms = computed(() => {
+  if ([Category.OfficialPlugins, Category.Ability, Category.SidePlugin, Category.AbilityPack].includes(props.project?.category as Category)) {
+    return globalData.value?.platforms?.filter((p) => p.enumName === "MINECRAFT" || p.enumName === "PROJECTKORRA") ?? [];
+  }
+
+  if ([Category.DataPack, Category.ResourcePack, Category.WorldBuild].includes(props.project?.category as Category)) {
+    return globalData.value?.platforms?.filter((p) => p.enumName === "ASSET") ?? [];
+  }
+
+  if (props.project?.category === Category.Other) {
+    return globalData.value?.platforms?.filter((p) => ["MINECRAFT", "PROJECTKORRA", "ASSET"].includes(p.enumName)) ?? [];
+  }
+
+  return globalData.value?.platforms ?? [];
+})
+
 const v = useVuelidate();
 
 const timeout = ref(30_000);
@@ -249,7 +266,7 @@ function addChannel(channel: HangarChannel | ProjectChannel) {
 }
 
 function togglePlatform(platformFile: PlatformFile, platform: Platform) {
-  if (!globalData.value?.platforms) return;
+  if (!availablePlatforms.value?.some((p) => p.enumName === platform)) return;
   if (platformFile.platforms.includes(platform)) {
     platformFile.platforms = platformFile.platforms.filter((p) => p !== platform);
   } else {
@@ -345,7 +362,7 @@ useSeo(
               <InputGroup v-model="platformFile.platforms" :label="t('version.platforms')" :rules="platformRules" :silent-errors="false" full-width>
                 <div class="flex flex-wrap gap-2">
                   <button
-                    v-for="platform in globalData?.platforms"
+                    v-for="platform in availablePlatforms"
                     :key="platform.name"
                     type="button"
                     class="inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-semibold transition-colors"
