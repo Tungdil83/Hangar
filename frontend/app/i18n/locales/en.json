@@ -360,6 +360,16 @@
       "tags": {
         "title": "Tags",
         
+        "ADDON": {
+          "title": "Addon",
+          "description": "This project is an Addon for another project. It requires the other project to be installed.",
+          "tooltip": "This project is an Addon"
+        },
+        "SUPPORTS_FOLIA": {
+          "title": "Folia Support",
+          "description": "This project supports the Folia server implementation.",
+          "tooltip": "This project supports Folia"
+        },
         "CUSTOM_ABILITY": {
           "title": "Custom Ability",
           "description": "This project is a single custom bending ability that can be installed into the `/ProjectKorra/Abilities/` folder.",
