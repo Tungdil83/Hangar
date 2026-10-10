@@ -56,7 +56,7 @@ CREATE TABLE server_verifications
         CONSTRAINT server_verifications_server_id_fkey
             REFERENCES servers(id)
             ON DELETE CASCADE,
-    reviewer_id         bigint                             NOT NULL
+    reviewer_id         bigint
         CONSTRAINT server_verifications_reviewer_id_fkey
             REFERENCES users(id)
             ON DELETE CASCADE,
