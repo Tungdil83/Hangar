@@ -28,7 +28,7 @@ CREATE TABLE servers
     updated_at          timestamp WITH TIME ZONE           NOT NULL DEFAULT now(),
     status              server_status                      NOT NULL DEFAULT 'PENDING',
     CONSTRAINT servers_ip_port_unique
-        UNIQUE (id, port)
+        UNIQUE (ip, port)
 );
 
 CREATE INDEX idx_servers_owner_id
