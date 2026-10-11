@@ -10,8 +10,8 @@ CREATE TABLE servers
         CONSTRAINT server_uuid_pkey
             UNIQUE,
     name                varchar(255)                       NOT NULL,
-    ip                  integer                            NOT NULL DEFAULT 25565,
-    port                integer                            NOT NULL,
+    ip                  varchar(255)                       NOT NULL,
+    port                integer                            NOT NULL DEFAULT 25565,
     description         text                               NOT NULL,
     banner_image        varchar(255)                       NOT NULL,
     logo_image          varchar(255)                       NOT NULL,
