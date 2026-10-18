@@ -7,6 +7,7 @@ import io.papermc.hangar.model.db.UserTable;
 import io.papermc.hangar.model.db.auth.ApiKeyTable;
 import io.papermc.hangar.security.authentication.api.HangarApiPrincipal;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
@@ -68,6 +69,11 @@ public class PermissionService extends HangarComponent {
         return this.getPermissions(userId, id -> this.permissionsDAO.getOrganizationPermission(id, orgName));
     }
 
+    // Server Permission (currently only owner)
+    public Permission getServerPermissions(final @Nullable Long userId, final UUID uuid) {
+        return this.getPermissions(userId, id -> this.permissionsDAO.getServerPermission(uuid, id, Permission.IsServerOwner.getValue()));
+    }
+
     // Possible permissions for a user
     public Permission getPossibleProjectPermissions(final @Nullable Long userId) {
         return this.getPermissions(userId, this.permissionsDAO::getPossibleProjectPermissions);
@@ -80,6 +86,8 @@ public class PermissionService extends HangarComponent {
     public Permission getAllPossiblePermissions(final @Nullable Long userId) {
         return this.getGlobalPermissions(userId).add(this.getPossibleProjectPermissions(userId)).add(this.getPossibleOrganizationPermissions(userId));
     }
+
+
 
     private @NotNull <T> Permission getPermissions(final @Nullable T identifier, final @NotNull Function<T, Permission> permissionSupplier) {
         if (identifier == null) {

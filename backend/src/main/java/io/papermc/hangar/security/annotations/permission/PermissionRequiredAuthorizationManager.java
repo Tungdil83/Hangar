@@ -5,12 +5,14 @@ import io.papermc.hangar.model.common.NamedPermission;
 import io.papermc.hangar.model.common.Permission;
 import io.papermc.hangar.model.db.OrganizationTable;
 import io.papermc.hangar.model.db.projects.ProjectTable;
+import io.papermc.hangar.model.db.servers.ServerTable;
 import io.papermc.hangar.security.authentication.HangarAuthenticationToken;
 import io.papermc.hangar.security.authorization.HangarAuthorizationManager;
 import io.papermc.hangar.service.PermissionService;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Supplier;
 import org.aopalliance.intercept.MethodInvocation;
 import org.jspecify.annotations.Nullable;
@@ -132,6 +134,21 @@ public class PermissionRequiredAuthorizationManager extends HangarAuthorizationM
                             throw new IllegalStateException("Bad annotation configuration, expected Long or String but got " +
                                 (arguments[0] != null ? arguments[0].getClass().getName() : "null"));
                     };
+                } else {
+                    currentPerm = Permission.None;
+                }
+            }
+            case SERVER -> {
+                final Object argument1 = arguments[0];
+                if (arguments.length == 1) {
+                    if (argument1 instanceof UUID uuid) {
+                        currentPerm = this.permissionService.getServerPermissions(userId, uuid);
+                    } else if (argument1 instanceof ServerTable serverTable) {
+                        currentPerm = this.permissionService.getServerPermissions(userId, serverTable.getUUID());
+                    } else {
+                        throw new IllegalStateException("Bad annotation configuration, expected UUID or ServerTable but got " +
+                            (arguments[0] != null ? arguments[0].getClass().getName() : "null"));
+                    }
                 } else {
                     currentPerm = Permission.None;
                 }

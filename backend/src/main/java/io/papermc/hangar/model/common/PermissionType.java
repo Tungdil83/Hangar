@@ -9,7 +9,9 @@ public enum PermissionType {
 
     PROJECT("project", 1),
 
-    ORGANIZATION("organization", 1);
+    ORGANIZATION("organization", 1),
+
+    SERVER("server", 1);
 
     private final String value;
     private final Set<Integer> argCounts;

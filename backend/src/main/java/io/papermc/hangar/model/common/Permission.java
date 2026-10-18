@@ -64,6 +64,12 @@ public class Permission implements Comparable<Permission>, Argument {
     public static final Permission RestoreVersion = new Permission(1L << 44);
     public static final Permission RestoreProject = new Permission(1L << 45);
 
+    public static final Permission CreateServer = new Permission(1L << 46);
+    public static final Permission DeleteServer = new Permission(1L << 47);
+    public static final Permission UpdateServer = new Permission(EditSubjectSettings.value);
+    public static final Permission IsServerOwner = new Permission(IsSubjectOwner.value | DeleteServer.value | UpdateServer.value);
+
+
     private final long value;
 
     @JdbiConstructor

@@ -3,6 +3,7 @@ package io.papermc.hangar.db.dao;
 import io.papermc.hangar.model.common.Permission;
 import io.papermc.hangar.model.db.UserTable;
 import java.util.Map;
+import java.util.UUID;
 import org.jdbi.v3.spring.JdbiRepository;
 import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
 import org.jdbi.v3.sqlobject.config.ValueColumn;
@@ -69,6 +70,20 @@ public interface PermissionsDAO {
 
     default Permission getOrganizationPermission(final long userId, final long orgId) {
         return this._getOrganizationPermission(userId, null, orgId);
+    }
+
+    @SqlQuery("""
+        SELECT CASE
+            WHEN s.owner_id = :userId THEN :ownerPerms::bigint
+            ELSE 0
+        END AS perm_value
+        FROM servers s
+        WHERE s.uuid = :uuid
+    """)
+    Permission _getServerPermission(UUID uuid, long userId, long ownerPerms);
+
+    default Permission getServerPermission(final UUID uuid, final long userId, final long ownerPerms) {
+        return this._getServerPermission(uuid, userId, ownerPerms);
     }
 
     @SqlQuery("SELECT coalesce(bit_or(upr.permissions), B'0'::bit(64))::bigint perm_value FROM user_project_roles upr WHERE upr.user_id = :userId")

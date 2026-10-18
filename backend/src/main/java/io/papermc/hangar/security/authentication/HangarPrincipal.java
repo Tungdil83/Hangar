@@ -2,6 +2,7 @@ package io.papermc.hangar.security.authentication;
 
 import io.papermc.hangar.model.common.Permission;
 import io.papermc.hangar.model.db.projects.ProjectOwner;
+import io.papermc.hangar.model.db.servers.ServerOwner;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -9,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class HangarPrincipal implements ProjectOwner, UserDetails, Serializable {
+public class HangarPrincipal implements ProjectOwner, UserDetails, Serializable, ServerOwner {
 
     private final long id;
     private final String name;

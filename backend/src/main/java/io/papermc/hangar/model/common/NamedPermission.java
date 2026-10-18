@@ -44,7 +44,12 @@ public enum NamedPermission {
     RESTORE_PROJECT("restore_project", Permission.RestoreProject, "RestoreProject"),
     HARD_DELETE_PROJECT("hard_delete_project", Permission.HardDeleteProject, "HardDeleteProject"),
     HARD_DELETE_VERSION("hard_delete_version", Permission.HardDeleteVersion, "HardDeleteVersion"),
-    EDIT_ALL_USER_SETTINGS("edit_all_user_settings", Permission.EditAllUserSettings, "EditAllUserSettings");
+    EDIT_ALL_USER_SETTINGS("edit_all_user_settings", Permission.EditAllUserSettings, "EditAllUserSettings"),
+
+    CREATE_SERVER("create_server", Permission.CreateServer, "CreateServer"),
+    EDIT_SERVER("edit_server", Permission.UpdateServer, "EditServer"),
+    DELETE_SERVER("delete_server", Permission.DeleteServer, "DeleteServer"),
+    IS_SERVER_OWNER("is_server_owner", Permission.IsServerOwner, "IsServerOwner"),;
 
     private final String value;
     private final Permission permission;

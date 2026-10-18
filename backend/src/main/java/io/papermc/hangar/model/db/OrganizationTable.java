@@ -3,13 +3,14 @@ package io.papermc.hangar.model.db;
 import io.papermc.hangar.model.Owned;
 import io.papermc.hangar.model.Visitable;
 import io.papermc.hangar.model.db.projects.ProjectOwner;
+import io.papermc.hangar.model.db.servers.ServerOwner;
 import io.papermc.hangar.model.loggable.OrganizationLoggable;
 import org.jdbi.v3.core.mapper.PropagateNull;
 import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public class OrganizationTable extends Table implements Visitable, ProjectOwner, OrganizationLoggable, Owned {
+public class OrganizationTable extends Table implements Visitable, ProjectOwner, OrganizationLoggable, Owned, ServerOwner {
 
     private final String name;
     private long ownerId;
