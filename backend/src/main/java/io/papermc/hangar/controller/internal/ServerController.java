@@ -1,4 +1,4 @@
-package io.papermc.hangar.controller.api.v1;
+package io.papermc.hangar.controller.internal;
 
 import io.papermc.hangar.HangarComponent;
 import io.papermc.hangar.model.common.PermissionType;
@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RateLimit(path = "server")
-@RequestMapping(path = "/api/servers", produces = MediaType.APPLICATION_JSON_VALUE)
+@RateLimit(path = "server", greedy = true)
+@RequestMapping(path = "/api/internal/servers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ServerController extends HangarComponent {
 
     private final ServerService serverService;
