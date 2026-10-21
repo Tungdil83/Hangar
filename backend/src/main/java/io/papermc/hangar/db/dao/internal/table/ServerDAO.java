@@ -22,7 +22,7 @@ public interface ServerDAO {
     @SqlUpdate("UPDATE servers SET name = :name, ip = :ip, port = :port, description = :description, banner_image = :bannerImage, logo_image = :logoImage, tags = :tags, website_url = :websiteURL, discord_url = :discordURL, minecraft_version = :minecraftVersion, updated_at = :now WHERE uuid = :serveruuid")
     ServerTable updateServer(UUID serveruuid, @BindBean UpdateServerForm updateServer);
 
-    @SqlQuery("SELECT * FROM servers WHERE uuid=:uuid")
+    @SqlQuery("SELECT * FROM servers WHERE uuid=:uuid AND status = 'APPROVED'")
     ServerTable getServer(UUID uuid);
 
     // TODO: add more filter criteria, maybe separate listServers() into listAllServers() and listVerificatedServers()
