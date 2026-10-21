@@ -35,9 +35,11 @@ public interface ServerDAO {
     @SqlUpdate("DELETE FROM servers WHERE uuid = :uuid")
     void deleteServer(UUID uuid);
 
-    @SqlUpdate("UPDATE servers SET status = 'APPROVED' WHERE uuid = :uuid")
+    @Timestamped
+    @SqlUpdate("UPDATE servers SET status = 'APPROVED', updated_at = :now WHERE uuid = :uuid")
     void approveServer(UUID uuid);
 
-    @SqlUpdate("UPDATE servers SET status = 'REJECTED' WHERE uuid = :uuid")
+    @Timestamped
+    @SqlUpdate("UPDATE servers SET status = 'REJECTED', updated_at = :now WHERE uuid = :uuid")
     void rejectServer(UUID uuid);
 }
