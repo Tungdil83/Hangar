@@ -66,7 +66,7 @@ public class ServerController extends HangarComponent {
     @RateLimit(overdraft = 5, refillTokens = 1, refillSeconds = 60)
     public ResponseEntity<ServerTable> createServer(@RequestBody final @Valid NewServerForm newServer) {
         final ServerTable serverTable = this.serverFactory.createServer(newServer);
-        return ResponseEntity.ok(this.serverService.getServer(serverTable.getUUID()));
+        return ResponseEntity.ok(serverTable);
     }
 
     @Unlocked
