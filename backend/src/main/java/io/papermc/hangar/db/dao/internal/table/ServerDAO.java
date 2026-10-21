@@ -17,7 +17,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 public interface ServerDAO {
     @GetGeneratedKeys
     @Timestamped
-    @SqlUpdate("INSERT INTO servers (id, uuid, name, ip, port, description, banner_image, logo_image, tags, website_url, discord_url, minecraft_version, player_count, owner_id, created_at, updated_at, status) VALUES (:id, :uuid, :name, :ip, :port, :description, :bannerImage, :logoImage, :tags, :websiteURL, :discordURL, :minecraftVersion, :playerCount, :ownerId, :now, :now, :status)")
+    @SqlUpdate("INSERT INTO servers (uuid, name, ip, port, description, banner_image, logo_image, tags, website_url, discord_url, minecraft_version, player_count, owner_id, created_at, updated_at) VALUES (:uuid, :name, :ip, :port, :description, :bannerImage, :logoImage, :tags, :websiteURL, :discordURL, :minecraftVersion, :playerCount, :ownerId, :now, :now)")
     ServerTable createServer(@BindBean ServerTable server);
 
     @GetGeneratedKeys
