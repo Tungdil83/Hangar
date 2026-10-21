@@ -85,9 +85,9 @@ public class ServerTable extends Table implements Owned, Named {
         this.status = status;
     }
 
-    public UUID getUUID() { return this.uuid; }
+    public UUID getUuid() { return this.uuid; }
 
-    public void setUUID(final UUID uuid) { this.uuid = uuid; }
+    public void setUuid(final UUID uuid) { this.uuid = uuid; }
 
     @Override
     public String getName() { return this.name; }

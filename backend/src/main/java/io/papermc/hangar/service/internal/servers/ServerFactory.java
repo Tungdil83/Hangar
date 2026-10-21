@@ -34,10 +34,10 @@ public class ServerFactory extends HangarComponent {
         ServerTable serverTable = null;
         try {
             serverTable = this.serverService.createServer(new ServerTable(serverOwner, newServer));
-            this.serverVerificationService.submitForVerification(serverTable.getUUID());
+            this.serverVerificationService.submitForVerification(serverTable.getUuid());
         } catch (final Exception exception) {
             if (serverTable != null) {
-                this.serverDAO.deleteServer(serverTable.getUUID());
+                this.serverDAO.deleteServer(serverTable.getUuid());
             }
             throw exception;
         }

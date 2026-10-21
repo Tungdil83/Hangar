@@ -144,7 +144,7 @@ public class PermissionRequiredAuthorizationManager extends HangarAuthorizationM
                     if (argument1 instanceof UUID uuid) {
                         currentPerm = this.permissionService.getServerPermissions(userId, uuid);
                     } else if (argument1 instanceof ServerTable serverTable) {
-                        currentPerm = this.permissionService.getServerPermissions(userId, serverTable.getUUID());
+                        currentPerm = this.permissionService.getServerPermissions(userId, serverTable.getUuid());
                     } else {
                         throw new IllegalStateException("Bad annotation configuration, expected UUID or ServerTable but got " +
                             (arguments[0] != null ? arguments[0].getClass().getName() : "null"));
