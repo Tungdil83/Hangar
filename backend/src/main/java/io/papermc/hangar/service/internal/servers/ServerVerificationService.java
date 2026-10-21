@@ -3,6 +3,8 @@ package io.papermc.hangar.service.internal.servers;
 import io.papermc.hangar.HangarComponent;
 import io.papermc.hangar.db.dao.internal.table.ServerDAO;
 import io.papermc.hangar.db.dao.internal.table.ServerVerificationDAO;
+import io.papermc.hangar.model.db.servers.ServerVerificationTable;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,6 @@ public class ServerVerificationService extends HangarComponent {
 
     private final ServerVerificationDAO serverVerificationDAO;
     private final ServerDAO serverDAO;
-
 
     public ServerVerificationService(final ServerVerificationDAO serverVerificationDAO, final ServerDAO serverDAO) {
         this.serverVerificationDAO = serverVerificationDAO;
@@ -31,5 +32,7 @@ public class ServerVerificationService extends HangarComponent {
         this.serverVerificationDAO.rejectServer(uuid, notes, this.getHangarUserId());
     }
 
-    // TODO: Add getVerificationQueue()
+    public List<ServerVerificationTable> getVerificationQueue() {
+        return this.serverVerificationDAO.getVerificationQueue();
+    }
 }

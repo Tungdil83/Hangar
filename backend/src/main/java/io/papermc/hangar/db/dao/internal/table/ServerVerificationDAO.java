@@ -1,9 +1,11 @@
 package io.papermc.hangar.db.dao.internal.table;
 
 import io.papermc.hangar.model.db.servers.ServerVerificationTable;
+import java.util.List;
 import java.util.UUID;
 import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
 import org.jdbi.v3.sqlobject.customizer.Timestamped;
+import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.spring.JdbiRepository;
 
@@ -21,5 +23,6 @@ public interface ServerVerificationDAO {
     @SqlUpdate("UPDATE server_verifications SET status = 'REJECTED', notes = :notes, reviewer_id = :reviewerId, updated_at = :now WHERE uuid = :uuid")
     void rejectServer(UUID uuid, String notes, Long reviewerId);
 
-    // TODO: implement getVerificationQueue()
+    @SqlQuery("SELECT * FROM server_verifications WHERE status = 'PENDING' ORDER BY created_at DESC")
+    List<ServerVerificationTable> getVerificationQueue();
 }

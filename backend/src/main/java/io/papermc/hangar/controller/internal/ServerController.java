@@ -2,6 +2,7 @@ package io.papermc.hangar.controller.internal;
 
 import io.papermc.hangar.HangarComponent;
 import io.papermc.hangar.model.common.PermissionType;
+import io.papermc.hangar.model.db.servers.ServerVerificationTable;
 import io.papermc.hangar.model.internal.api.requests.servers.NewServerForm;
 import io.papermc.hangar.model.internal.api.requests.servers.UpdateServerForm;
 import io.papermc.hangar.service.internal.servers.ServerFactory;
@@ -87,7 +88,13 @@ public class ServerController extends HangarComponent {
 
     // TODO: implement get all servers for user
 
-    // TODO: add verification queue for admin
+    @Unlocked
+    @LoggedIn
+    @PermissionRequired(NamedPermission.REVIEWER)
+    @GetMapping(path = "/verification/queue")
+    public ResponseEntity<List<ServerVerificationTable>> getVerificationQueue() {
+        return ResponseEntity.ok(this.serverVerificationService.getVerificationQueue());
+    }
 
     @Unlocked
     @LoggedIn
