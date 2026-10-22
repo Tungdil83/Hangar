@@ -25,4 +25,7 @@ public interface ServerVerificationDAO {
 
     @SqlQuery("SELECT * FROM server_verifications WHERE status = 'PENDING' ORDER BY created_at DESC")
     List<ServerVerificationTable> getVerificationQueue();
+
+    @SqlUpdate("DELETE FROM server_verifications WHERE uuid = :uuid")
+    void deleteVerification(UUID uuid);
 }

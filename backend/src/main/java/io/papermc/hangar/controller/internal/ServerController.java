@@ -84,6 +84,7 @@ public class ServerController extends HangarComponent {
     @DeleteMapping(path = "/{uuid}")
     public void deleteServer(UUID uuid) {
         this.serverService.deleteServer(uuid);
+        this.serverVerificationService.deleteVerification(uuid);
     }
 
     // TODO: implement get all servers for user

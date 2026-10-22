@@ -35,4 +35,8 @@ public class ServerVerificationService extends HangarComponent {
     public List<ServerVerificationTable> getVerificationQueue() {
         return this.serverVerificationDAO.getVerificationQueue();
     }
+
+    public void deleteVerification(UUID uuid) {
+        this.serverVerificationDAO.deleteVerification(uuid);
+    }
 }
