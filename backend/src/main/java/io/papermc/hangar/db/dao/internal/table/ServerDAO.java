@@ -28,6 +28,10 @@ public interface ServerDAO {
     @SqlQuery("SELECT * FROM servers WHERE uuid=:uuid AND status = 'APPROVED'")
     ServerTable getServer(UUID uuid);
 
+    // Needed for ServerVerificationService -> serverId
+    @SqlQuery("SELECT * FROM servers WHERE uuid=:uuid")
+    ServerTable getServerWithoutStatusRequirement(UUID uuid);
+
     // TODO: add more filter criteria, maybe separate listServers() into listAllServers() and listVerificatedServers()
     @SqlQuery("SELECT * FROM servers WHERE name LIKE :name AND status = 'APPROVED'")
     List<ServerTable> filterServers(String name);

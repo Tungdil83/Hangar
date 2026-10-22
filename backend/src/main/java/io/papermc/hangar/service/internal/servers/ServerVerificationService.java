@@ -20,7 +20,7 @@ public class ServerVerificationService extends HangarComponent {
     }
 
     public void submitForVerification(UUID uuid) {
-        Long serverId = this.serverDAO.getServer(uuid).getId();
+        Long serverId = this.serverDAO.getServerWithoutStatusRequirement(uuid).getId();
         this.serverVerificationDAO.submitForVerification(uuid, serverId);
     }
 
