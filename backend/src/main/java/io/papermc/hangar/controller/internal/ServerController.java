@@ -82,7 +82,7 @@ public class ServerController extends HangarComponent {
     @LoggedIn
     @PermissionRequired(type = PermissionType.SERVER, perms = NamedPermission.DELETE_SERVER, args = "{#uuid}")
     @DeleteMapping(path = "/{uuid}")
-    public void deleteServer(UUID uuid) {
+    public void deleteServer(@PathVariable UUID uuid) {
         this.serverService.deleteServer(uuid);
         this.serverVerificationService.deleteVerification(uuid);
     }
