@@ -8,12 +8,12 @@ import org.jdbi.v3.core.mapper.reflect.JdbiConstructor;
 
 public class ServerVerificationTable extends Table {
     private UUID uuid;
-    private Integer serverId;
+    private Long serverId;
     private Integer reviewerId;
     private ServerVerificationStatus status;
     private String notes;
 
-    public ServerVerificationTable(final long id, final UUID uuid, final Integer serverId, final Integer reviewerId,
+    public ServerVerificationTable(final long id, final UUID uuid, final Long serverId, final Integer reviewerId,
                                    final ServerVerificationStatus status, final String notes) {
         super(id);
         this.uuid = uuid;
@@ -24,7 +24,7 @@ public class ServerVerificationTable extends Table {
     }
 
     @JdbiConstructor
-    public ServerVerificationTable(final OffsetDateTime createdAt, final long id, final UUID uuid, final Integer serverId,
+    public ServerVerificationTable(final OffsetDateTime createdAt, final long id, final UUID uuid, final Long serverId,
                                    final Integer reviewerId, final  ServerVerificationStatus status, final String notes) {
         super(createdAt, id);
         this.uuid = uuid;
@@ -38,9 +38,9 @@ public class ServerVerificationTable extends Table {
 
     public void setUUID(final UUID uuid) { this.uuid = uuid; }
 
-    public Integer getServerId() { return serverId; }
+    public Long getServerId() { return serverId; }
 
-    public void setServerId(final Integer serverId) { this.serverId = serverId; }
+    public void setServerId(final Long serverId) { this.serverId = serverId; }
 
     public Integer getReviewerId() { return reviewerId; }
 
