@@ -71,7 +71,7 @@ public class ServerController extends HangarComponent {
 
     @Unlocked
     @LoggedIn
-    @PermissionRequired(type = PermissionType.SERVER, perms = NamedPermission.IS_SERVER_OWNER, args = "{#uuid}")
+    @PermissionRequired(type = PermissionType.SERVER, perms = NamedPermission.EDIT_SERVER, args = "{#uuid}")
     @PutMapping(path = "/{uuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ServerTable> updateServer(@PathVariable("uuid") UUID uuid, @RequestBody final @Valid UpdateServerForm updateServer) {
         ServerTable serverTable = this.serverFactory.updateServer(uuid, updateServer);
@@ -82,7 +82,7 @@ public class ServerController extends HangarComponent {
     @LoggedIn
     @PermissionRequired(type = PermissionType.SERVER, perms = NamedPermission.DELETE_SERVER, args = "{#uuid}")
     @DeleteMapping(path = "/{uuid}")
-    public void deleteServer(@PathVariable UUID uuid) {
+    public void deleteServer(@PathVariable("uuid") UUID uuid) {
         this.serverService.deleteServer(uuid);
         this.serverVerificationService.deleteVerification(uuid);
     }
