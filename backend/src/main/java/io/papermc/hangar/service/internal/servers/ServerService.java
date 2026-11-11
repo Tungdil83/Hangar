@@ -48,6 +48,8 @@ public class ServerService extends HangarComponent {
         return this.serverDAO.listServers();
     }
 
+    public List<ServerTable> listServerForUser(Long userId) { return this.serverDAO.listServerForUser(userId); }
+
     public void deleteServer(final UUID uuid) {
         this.serverDAO.deleteServer(uuid);
     }

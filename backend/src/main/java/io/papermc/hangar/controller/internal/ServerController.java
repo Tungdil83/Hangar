@@ -87,7 +87,12 @@ public class ServerController extends HangarComponent {
         this.serverVerificationService.deleteVerification(uuid);
     }
 
-    // TODO: implement get all servers for user
+    @Unlocked
+    @LoggedIn
+    @GetMapping(path = "/user")
+    public ResponseEntity<List<ServerTable>> getServerForUser() {
+        return ResponseEntity.ok(this.serverService.listServerForUser(this.getHangarUserId()));
+    }
 
     @Unlocked
     @LoggedIn

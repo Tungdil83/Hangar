@@ -39,6 +39,9 @@ public interface ServerDAO {
     @SqlQuery("SELECT * FROM servers WHERE status = 'APPROVED'")
     List<ServerTable> listServers();
 
+    @SqlQuery("SELECT * FROM servers WHERE owner_id = :userId")
+    List<ServerTable> listServerForUser(Long userId);
+
     @SqlUpdate("DELETE FROM servers WHERE uuid = :uuid")
     void deleteServer(UUID uuid);
 
