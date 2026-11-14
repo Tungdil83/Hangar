@@ -73,11 +73,10 @@ public interface PermissionsDAO {
     }
 
     @SqlQuery("""
-        SELECT CASE
-            WHEN s.owner_id = :userId THEN :ownerPerms::bigint
-            ELSE 0
-        END AS perm_value
+        SELECT (coalesce(gt.permission, B'0'::bit(64)) |
+            (CASE WHEN s.owner_id = :userId THEN :ownerPerms::bigint ELSE 0 END)::bit(64))::bigint AS perm_value
         FROM servers s
+        LEFT JOIN global_trust gt ON gt.user_id = :userId
         WHERE s.uuid = :uuid
     """)
     Permission _getServerPermission(UUID uuid, long userId, long ownerPerms);
